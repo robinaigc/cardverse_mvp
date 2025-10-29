@@ -1,0 +1,15 @@
+User-agent: *
+Allow: /
+
+# 禁止爬取敏感页面
+Disallow: /admin
+Disallow: /api/
+Disallow: /account
+
+# 允许爬取主要页面
+Allow: /
+Allow: /card/
+Allow: /pricing
+
+# Sitemap
+Sitemap: https://cardverse.com/sitemap.xml

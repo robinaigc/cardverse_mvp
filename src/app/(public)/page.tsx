@@ -10,7 +10,7 @@ export default function HomePage() {
       <Sidebar />
       
       {/* 主内容区域 */}
-      <div className="ml-96 p-6">
+      <div className="ml-64 p-6">
         {/* 搜索栏 */}
         <div className="mb-8">
           <SearchBar />

@@ -1,0 +1,23 @@
+{
+  "buildCommand": "pnpm build",
+  "devCommand": "pnpm dev",
+  "installCommand": "pnpm install",
+  "framework": "nextjs",
+  "regions": ["hkg1", "sin1", "nrt1"],
+  "env": {
+    "NEXT_PUBLIC_SITE_URL": "https://cardverse.com",
+    "DATABASE_URL": "@database_url",
+    "SUPABASE_URL": "@supabase_url",
+    "SUPABASE_ANON_KEY": "@supabase_anon_key",
+    "SUPABASE_SERVICE_ROLE_KEY": "@supabase_service_role_key",
+    "CF_R2_ACCOUNT_ID": "@cf_r2_account_id",
+    "CF_R2_ACCESS_KEY_ID": "@cf_r2_access_key_id",
+    "CF_R2_SECRET_ACCESS_KEY": "@cf_r2_secret_access_key",
+    "CF_R2_BUCKET_NAME": "@cf_r2_bucket_name",
+    "STRIPE_SECRET_KEY": "@stripe_secret_key",
+    "STRIPE_WEBHOOK_SECRET": "@stripe_webhook_secret",
+    "PINGXX_API_KEY": "@pingxx_api_key",
+    "JWT_SECRET": "@jwt_secret",
+    "SENTRY_DSN": "@sentry_dsn"
+  }
+}
