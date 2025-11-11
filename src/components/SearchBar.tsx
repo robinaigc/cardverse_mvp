@@ -20,8 +20,8 @@ export default function SearchBar() {
   };
 
   return (
-    <div className="w-full max-w-2xl mx-auto">
-      {/* 主搜索框 */}
+    <div className="w-full">
+      {/* 主搜索框 - 通长布局 */}
       <form onSubmit={handleSearch} className="relative">
         <div className="flex">
           <input

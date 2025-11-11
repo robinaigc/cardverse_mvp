@@ -1,4 +1,4 @@
-import Image from 'next/image';
+'use client';
 
 interface CardTileProps {
   id: string;
@@ -30,46 +30,63 @@ export default function CardTile({
       className="group cursor-pointer bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
       onClick={() => onClick?.(id)}
     >
-      <div className="aspect-[4/3] relative overflow-hidden rounded-lg">
-        <Image
+      <div className="relative overflow-hidden rounded-lg" style={{ backgroundColor: '#f3f4f6' }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
           src={thumbUrl || '/placeholder-card.jpg'}
           alt={title}
-          fill
-          className="object-cover group-hover:scale-105 transition-transform duration-300"
-          sizes="(max-width: 768px) 100vw, (max-width: 1200px) 50vw, 33vw"
+          style={{
+            width: '100%',
+            height: 'auto',
+            display: 'block',
+            zIndex: 1
+          }}
+          className="group-hover:scale-105 transition-transform duration-300"
+          loading="eager"
         />
         
         {/* 半透明叠加层 - 只在 hover 时显示 */}
-        <div className="absolute inset-0 bg-black bg-opacity-0 group-hover:bg-opacity-60 transition-all duration-300 flex items-end">
-          <div className="w-full p-4 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-            <div className="flex items-center justify-between mb-2">
-              <span className="text-xs font-medium text-white bg-white bg-opacity-20 px-2 py-1 rounded backdrop-blur-sm">
+        <div 
+          className="absolute top-0 left-0 right-0 bottom-0 flex items-end z-20 pointer-events-none group-hover:pointer-events-auto transition-all duration-300"
+          style={{ 
+            backgroundColor: 'rgba(0, 0, 0, 0)',
+          }}
+          onMouseEnter={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0.7)';
+          }}
+          onMouseLeave={(e) => {
+            e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0)';
+          }}
+        >
+          <div className="w-full p-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <div className="flex items-center justify-between mb-1">
+              <span className="text-xs font-medium text-white bg-white bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
                 {series}
               </span>
-              <span className="text-xs text-white">
+              <span className="text-xs text-white bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
                 {downloads} 下载
               </span>
             </div>
             
-            <h3 className="font-semibold text-white mb-1 line-clamp-1">
+            <h3 className="font-semibold text-white mb-1 line-clamp-1 bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
               {title}
             </h3>
             
-            <p className="text-sm text-white mb-3 line-clamp-2 opacity-90">
+            <p className="text-sm text-white mb-2 line-clamp-2 bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
               {caption}
             </p>
             
-            <div className="flex flex-wrap gap-1">
+            <div className="flex flex-wrap gap-0.5">
               {tags.slice(0, 3).map((tag) => (
                 <span 
                   key={tag}
-                  className="text-xs text-white bg-white bg-opacity-20 px-2 py-1 rounded backdrop-blur-sm"
+                  className="text-xs text-white bg-white bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm"
                 >
                   {tag}
                 </span>
               ))}
               {tags.length > 3 && (
-                <span className="text-xs text-white opacity-70">
+                <span className="text-xs text-white bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
                   +{tags.length - 3}
                 </span>
               )}

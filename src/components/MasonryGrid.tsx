@@ -1,7 +1,8 @@
 'use client';
 
-import { useState, useEffect } from 'react';
+import { useState, useEffect, useCallback } from 'react';
 import CardTile from './CardTile';
+import { firstImages } from '@/lib/cards';
 
 interface Card {
   id: string;
@@ -13,6 +14,28 @@ interface Card {
   style: string;
   tags: string[];
   downloads: number;
+}
+
+function generateCards(): Card[] {
+  const cards = firstImages.map((img) => ({
+    id: img.id,
+    title: img.title,
+    caption: img.caption,
+    previewUrl: `/images/groups/${img.folder}/${img.filename}`,
+    thumbUrl: `/images/groups/${img.folder}/${img.filename}`,
+    series: img.series,
+    style: 'illustration',
+    tags: img.tags,
+    downloads: Math.floor(Math.random() * 1000)
+  }));
+  
+  // 随机打乱顺序
+  for (let i = cards.length - 1; i > 0; i--) {
+    const j = Math.floor(Math.random() * (i + 1));
+    [cards[i], cards[j]] = [cards[j], cards[i]];
+  }
+  
+  return cards;
 }
 
 export default function MasonryGrid() {
@@ -28,36 +51,49 @@ export default function MasonryGrid() {
   const loadCards = async () => {
     try {
       setLoading(true);
-      // TODO: 实现真实的 API 调用
-      // const response = await fetch(`/api/cards?page=${page}&limit=20`);
-      // const data = await response.json();
       
-      // 模拟数据
-      const mockCards: Card[] = Array.from({ length: 20 }, (_, i) => ({
-        id: `card-${page}-${i}`,
-        title: `卡片标题 ${page}-${i}`,
-        caption: `这是一张精美的卡片描述，展示了设计的美感和创意。`,
-        previewUrl: '/placeholder-card.jpg',
-        thumbUrl: '/placeholder-card.jpg',
-        series: ['免费系列', '建筑系列', '城市系列', '诸神系列', '国风系列'][i % 5],
-        style: ['minimal', 'illustration', 'photo', 'abstract'][i % 4],
-        tags: ['设计', '创意', '美学', '艺术'],
-        downloads: Math.floor(Math.random() * 1000)
-      }));
+      // 生成所有卡片数据（每组只显示第一张）
+      const allCards = generateCards();
+      
+      // 分页处理
+      const pageSize = 20;
+      const startIndex = (page - 1) * pageSize;
+      const endIndex = startIndex + pageSize;
+      const pageCards = allCards.slice(startIndex, endIndex);
       
       if (page === 1) {
-        setCards(mockCards);
+        setCards(pageCards);
       } else {
-        setCards(prev => [...prev, ...mockCards]);
+        setCards(prev => [...prev, ...pageCards]);
       }
       
-      setHasMore(page < 5); // 模拟最多5页
+      setHasMore(endIndex < allCards.length);
     } catch (error) {
       console.error('Failed to load cards:', error);
     } finally {
       setLoading(false);
     }
   };
+
+  // 滚动监听函数
+  const handleScroll = useCallback(() => {
+    if (loading || !hasMore) return;
+
+    const scrollTop = window.pageYOffset || document.documentElement.scrollTop;
+    const windowHeight = window.innerHeight;
+    const documentHeight = document.documentElement.scrollHeight;
+
+    // 当滚动到距离底部100px时触发加载
+    if (scrollTop + windowHeight >= documentHeight - 100) {
+      setPage(prev => prev + 1);
+    }
+  }, [loading, hasMore]);
+
+  // 添加滚动监听
+  useEffect(() => {
+    window.addEventListener('scroll', handleScroll);
+    return () => window.removeEventListener('scroll', handleScroll);
+  }, [handleScroll]);
 
   const loadMore = () => {
     if (!loading && hasMore) {
@@ -66,15 +102,19 @@ export default function MasonryGrid() {
   };
 
   const handleCardClick = (id: string) => {
-    window.location.href = `/card/${id}`;
+    // 从 firstImages 中找到对应的卡片
+    const card = firstImages.find(img => img.id === id);
+    if (card) {
+      window.location.href = `/card/${encodeURIComponent(card.folder)}/${encodeURIComponent(card.filename)}`;
+    }
   };
 
   return (
     <div className="space-y-6">
-      {/* 瀑布流网格 */}
-      <div className="columns-1 sm:columns-2 lg:columns-3 xl:columns-4 gap-6">
+      {/* 瀑布流网格 - 5列布局，极窄间距 */}
+      <div className="columns-1 sm:columns-2 md:columns-3 lg:columns-4 xl:columns-5 gap-1">
         {cards.map((card) => (
-          <div key={card.id} className="break-inside-avoid mb-6">
+          <div key={card.id} className="break-inside-avoid mb-1">
             <CardTile
               {...card}
               onClick={handleCardClick}
@@ -83,16 +123,13 @@ export default function MasonryGrid() {
         ))}
       </div>
       
-      {/* 加载更多按钮 */}
-      {hasMore && (
-        <div className="text-center">
-          <button
-            onClick={loadMore}
-            disabled={loading}
-            className="px-6 py-3 bg-blue-600 text-white rounded-lg hover:bg-blue-700 disabled:opacity-50 disabled:cursor-not-allowed"
-          >
-            {loading ? '加载中...' : '加载更多'}
-          </button>
+      {/* 加载指示器 */}
+      {loading && (
+        <div className="text-center py-8">
+          <div className="inline-flex items-center space-x-2 text-gray-600">
+            <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-600"></div>
+            <span>加载中...</span>
+          </div>
         </div>
       )}
       
