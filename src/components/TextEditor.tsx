@@ -2,6 +2,7 @@
 
 import { useState, useRef, useEffect, useCallback } from 'react';
 import ColorWheel from './ColorWheel';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface TextLayer {
   id: string;
@@ -56,6 +57,7 @@ const COMMON_COLORS = [
 ];
 
 export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
+  const { t, language } = useLanguage();
   const [textLayers, setTextLayers] = useState<TextLayer[]>([]);
   const [selectedLayerId, setSelectedLayerId] = useState<string | null>(null);
   const [showFontModal, setShowFontModal] = useState(false);
@@ -72,6 +74,35 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
   const inputRef = useRef<HTMLTextAreaElement>(null);
 
   const selectedLayer = textLayers.find(layer => layer.id === selectedLayerId);
+  
+  // 根据语言获取字体列表
+  const getFonts = () => {
+    if (language === 'en') {
+      return [
+        { name: 'Default', value: 'Arial, sans-serif' },
+        { name: 'Noto Sans SC', value: '"Noto Sans SC", sans-serif' },
+        { name: 'Noto Serif SC', value: '"Noto Serif SC", serif' },
+        { name: 'Roboto', value: '"Roboto", sans-serif' },
+        { name: 'Open Sans', value: '"Open Sans", sans-serif' },
+        { name: 'Lato', value: '"Lato", sans-serif' },
+        { name: 'Montserrat', value: '"Montserrat", sans-serif' },
+        { name: 'Poppins', value: '"Poppins", sans-serif' },
+        { name: 'Inter', value: '"Inter", sans-serif' },
+        { name: 'Playfair Display', value: '"Playfair Display", serif' },
+        { name: 'Merriweather', value: '"Merriweather", serif' },
+        { name: 'Raleway', value: '"Raleway", sans-serif' },
+        { name: 'Ubuntu', value: '"Ubuntu", sans-serif' },
+        { name: 'Oswald', value: '"Oswald", sans-serif' },
+        { name: 'Dancing Script', value: '"Dancing Script", cursive' },
+        { name: 'Pacifico', value: '"Pacifico", cursive' },
+        { name: 'Comfortaa', value: '"Comfortaa", sans-serif' },
+        { name: 'Nunito', value: '"Nunito", sans-serif' },
+        { name: 'Source Sans Pro', value: '"Source Sans Pro", sans-serif' },
+        { name: 'Crimson Text', value: '"Crimson Text", serif' },
+      ];
+    }
+    return AVAILABLE_FONTS;
+  };
 
   // 当图层进入编辑模式时，自动聚焦输入框
   useEffect(() => {
@@ -697,7 +728,7 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
             onClick={handleAddText}
             className="w-full px-2 py-1.5 bg-gray-50 border border-gray-300 rounded-md hover:bg-gray-100 text-xs whitespace-nowrap"
           >
-            添加文字
+            {t('textEditor.addText')}
           </button>
           
           <div className="relative modal-container">
@@ -712,11 +743,11 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
               }}
               className="w-full px-2 py-1.5 bg-white border border-gray-300 rounded-md hover:bg-gray-50 text-xs whitespace-nowrap"
             >
-              字体
+              {t('textEditor.font')}
             </button>
             {showFontModal && selectedLayer && (
               <div className="absolute left-full ml-2 top-0 bg-white border border-gray-300 rounded-md shadow-lg z-50 p-2 min-w-[200px]">
-                {AVAILABLE_FONTS.map(font => (
+                {getFonts().map(font => (
                   <button
                     key={font.value}
                     onClick={() => setFont(font.value)}
@@ -742,7 +773,7 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
               }}
               className="w-full px-2 py-1.5 bg-white border border-gray-300 rounded-md hover:bg-gray-50 text-xs whitespace-nowrap"
             >
-              大小
+              {t('textEditor.size')}
             </button>
             {showSizeModal && selectedLayer && (
               <div className="absolute left-full ml-2 top-0 bg-white border border-gray-300 rounded-md shadow-lg z-50 p-3 min-w-[150px]">
@@ -767,7 +798,7 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
               selectedLayer?.fontStyle === 'italic' ? 'bg-blue-50 border-blue-300' : ''
             }`}
           >
-            斜体
+            {t('textEditor.italic')}
           </button>
           
           <button
@@ -776,7 +807,7 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
               selectedLayer?.fontWeight === 'bold' ? 'bg-blue-50 border-blue-300' : ''
             }`}
           >
-            加粗
+            {t('textEditor.bold')}
           </button>
           
           <div className="relative modal-container">
@@ -791,13 +822,13 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
               }}
               className="w-full px-2 py-1.5 bg-white border border-gray-300 rounded-md hover:bg-gray-50 text-xs whitespace-nowrap"
             >
-              颜色
+              {t('textEditor.color')}
             </button>
             {showColorModal && selectedLayer && (
               <div className="absolute left-full ml-2 top-0 bg-white border border-gray-300 rounded-md shadow-lg z-50 p-3 min-w-[250px]">
                 {/* 常用颜色 */}
                 <div className="mb-3">
-                  <div className="text-xs text-gray-600 mb-2">常用颜色</div>
+                  <div className="text-xs text-gray-600 mb-2">{t('textEditor.commonColors')}</div>
                   <div className="grid grid-cols-5 gap-2">
                     {COMMON_COLORS.map(color => (
                       <button
@@ -812,7 +843,7 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
                 
                 {/* 色轮 */}
                 <div>
-                  <div className="text-xs text-gray-600 mb-2">色轮</div>
+                  <div className="text-xs text-gray-600 mb-2">{t('textEditor.colorWheel')}</div>
                   <div className="flex justify-center">
                     <ColorWheel
                       size={200}
@@ -837,7 +868,7 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
               }}
               className="w-full px-2 py-1.5 bg-white border border-gray-300 rounded-md hover:bg-gray-50 text-xs whitespace-nowrap"
             >
-              半透明
+              {t('textEditor.opacity')}
             </button>
             {showOpacityModal && selectedLayer && (
               <div className="absolute left-full ml-2 top-0 bg-white border border-gray-300 rounded-md shadow-lg z-50 p-3 min-w-[120px]">
@@ -860,7 +891,7 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
             onClick={handleDownload}
             className="w-full px-2 py-1.5 bg-blue-600 text-white rounded-md hover:bg-blue-700 text-xs whitespace-nowrap"
           >
-            下载
+            {t('textEditor.download')}
           </button>
         </div>
       </div>

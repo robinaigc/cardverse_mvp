@@ -1,7 +1,15 @@
+'use client';
+
 import { Suspense } from 'react';
 import MasonryGrid from '@/components/MasonryGrid';
 import Sidebar from '@/components/Sidebar';
 import SearchBar from '@/components/SearchBar';
+import { useLanguage } from '@/contexts/LanguageContext';
+
+function LoadingFallback() {
+  const { t } = useLanguage();
+  return <div className="text-center py-8">{t('home.loading')}</div>;
+}
 
 export default function HomePage() {
   return (
@@ -17,7 +25,7 @@ export default function HomePage() {
         </div>
         
         {/* 瀑布流展示区域 */}
-        <Suspense fallback={<div className="text-center py-8">加载中...</div>}>
+        <Suspense fallback={<LoadingFallback />}>
           <MasonryGrid />
         </Suspense>
       </div>

@@ -6,10 +6,12 @@ import { getGroupImages, getCardByFilename, firstImages, getGroupName } from '@/
 import LicenseBadge from '@/components/LicenseBadge';
 import TextEditor from '@/components/TextEditor';
 import Link from 'next/link';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function CardPage() {
   const params = useParams();
   const router = useRouter();
+  const { t, language } = useLanguage();
   const folder = decodeURIComponent(params.folder as string);
   const filename = decodeURIComponent(params.filename as string);
   
@@ -17,7 +19,7 @@ export default function CardPage() {
   const [groupImages, setGroupImages] = useState<string[]>([]);
   const [cardInfo, setCardInfo] = useState<any>(null);
 
-  // 只在 folder 变化时获取 group 信息和图片列表
+  // 只在 folder 或 language 变化时获取 group 信息和图片列表
   useEffect(() => {
     // 获取该组所有图片
     const images = getGroupImages(folder);
@@ -31,7 +33,7 @@ export default function CardPage() {
         filename: firstCard.filename // 使用第一张图片的 filename，保持稳定
       });
     }
-  }, [folder]); // 只依赖 folder，不依赖 filename
+  }, [folder, language]); // 依赖 folder 和 language，当语言切换时重新加载
 
   // 当 URL 中的 filename 变化时（比如直接访问新 URL），更新 currentImage
   useEffect(() => {
@@ -70,7 +72,7 @@ export default function CardPage() {
     return (
       <div className="min-h-screen bg-white flex items-center justify-center">
         <div className="text-center">
-          <p className="text-gray-500">加载中...</p>
+          <p className="text-gray-500">{t('card.loading')}</p>
         </div>
       </div>
     );
@@ -89,7 +91,7 @@ export default function CardPage() {
           <svg className="w-5 h-5 mr-2" fill="none" stroke="currentColor" viewBox="0 0 24 24">
             <path strokeLinecap="round" strokeLinejoin="round" strokeWidth={2} d="M15 19l-7-7 7-7" />
           </svg>
-          返回首页
+          {t('card.back')}
         </Link>
       </div>
       
@@ -119,7 +121,7 @@ export default function CardPage() {
                     <p className="text-xs text-gray-500">{groupName.english}</p>
                   </div>
                 ) : (
-                  <h3 className="text-sm font-medium text-gray-600 mb-3">该系列所有图片</h3>
+                  <h3 className="text-sm font-medium text-gray-600 mb-3">{t('card.series.all')}</h3>
                 )}
                 <div className="flex gap-2 overflow-x-auto pb-2">
                   {groupImages.map((imageFilename) => {
@@ -150,37 +152,41 @@ export default function CardPage() {
             {/* 右侧：卡片信息区域 */}
             <div className="space-y-6">
               <div>
-                {/* 中文名 */}
-                <h1 className="text-2xl font-bold mb-1">{cardInfo.title}</h1>
-                {/* 英文名 - 从文件名提取 */}
+                {/* 标题 */}
+                <h1 className="text-2xl font-bold mb-1">
+                  {language === 'en' && cardInfo.titleEn ? cardInfo.titleEn : cardInfo.title}
+                </h1>
+                {/* 副标题 - 从文件名提取或使用英文标题 */}
                 <p className="text-lg text-gray-500 mb-3 font-normal">
-                  {englishName}
+                  {language === 'en' ? englishName : (cardInfo.titleEn || englishName)}
                 </p>
-                <p className="text-gray-600 mb-4">{cardInfo.caption}</p>
+                <p className="text-gray-600 mb-4">
+                  {language === 'en' && cardInfo.captionEn ? cardInfo.captionEn : cardInfo.caption}
+                </p>
                 <div className="flex items-center gap-4 text-sm text-gray-500">
-                  <span>作者：Cardverse</span>
-                  <span>上传时间：2024-01-01</span>
-                  <span>下载次数：{Math.floor(Math.random() * 1000)}</span>
+                  <span>{t('card.author')}: Cardverse</span>
+                  <span>{t('card.uploadTime')}: 2024-01-01</span>
+                  <span>{t('card.downloads')}: {Math.floor(Math.random() * 1000)}</span>
                 </div>
               </div>
               
               {/* 操作按钮 */}
               <div className="flex gap-4">
                 <button className="px-6 py-2 bg-blue-600 text-white rounded-md hover:bg-blue-700">
-                  收藏
+                  {t('card.favorite')}
                 </button>
                 <button className="px-6 py-2 border border-gray-300 rounded-md hover:bg-gray-50">
-                  分享
+                  {t('card.share')}
                 </button>
               </div>
               
               {/* 相似推荐 */}
               <div>
-                <h3 className="font-medium mb-4">相似风格</h3>
+                <h3 className="font-medium mb-4">{t('card.similar')}</h3>
                 <div className="grid grid-cols-3 gap-2">
                   {[1, 2, 3].map((i) => (
                     <div key={i} className="aspect-square bg-gray-100 rounded cursor-pointer hover:bg-gray-200">
-                      <span className="text-xs text-gray-500">推荐 {i}</span>
+                      <span className="text-xs text-gray-500">{t('card.recommend')} {i}</span>
                     </div>
                   ))}
                 </div>

@@ -1,36 +1,42 @@
+'use client';
+
+import { useLanguage } from '@/contexts/LanguageContext';
+
 interface LicenseBadgeProps {
   licenseType: 'personal' | 'commercial' | 'enterprise';
   className?: string;
 }
 
 export default function LicenseBadge({ licenseType, className = '' }: LicenseBadgeProps) {
+  const { t } = useLanguage();
+  
   const getLicenseInfo = (type: string) => {
     switch (type) {
       case 'personal':
         return {
-          label: '个人使用授权',
-          description: '仅限个人非商业用途使用',
+          label: t('license.personal.label'),
+          description: t('license.personal.description'),
           color: 'bg-blue-100 text-blue-800 border-blue-200',
           icon: '👤'
         };
       case 'commercial':
         return {
-          label: '商业使用授权',
-          description: '可用于商业项目、品牌营销等',
+          label: t('license.commercial.label'),
+          description: t('license.commercial.description'),
           color: 'bg-green-100 text-green-800 border-green-200',
           icon: '💼'
         };
       case 'enterprise':
         return {
-          label: '企业授权',
-          description: '企业级授权，包含API访问权限',
+          label: t('license.enterprise.label'),
+          description: t('license.enterprise.description'),
           color: 'bg-purple-100 text-purple-800 border-purple-200',
           icon: '🏢'
         };
       default:
         return {
-          label: '未知授权',
-          description: '授权类型未知',
+          label: t('license.unknown.label'),
+          description: t('license.unknown.description'),
           color: 'bg-gray-100 text-gray-800 border-gray-200',
           icon: '❓'
         };
@@ -49,9 +55,9 @@ export default function LicenseBadge({ licenseType, className = '' }: LicenseBad
           
           {/* 授权条款 */}
           <div className="mt-3 text-xs opacity-70">
-            <p>• 禁止二次分发或转售</p>
-            <p>• 使用时需保留版权信息</p>
-            <p>• 授权文件具有法律效力</p>
+            <p>• {t('license.terms.noRedistribution')}</p>
+            <p>• {t('license.terms.keepCopyright')}</p>
+            <p>• {t('license.terms.legalEffect')}</p>
           </div>
         </div>
       </div>
@@ -59,7 +65,7 @@ export default function LicenseBadge({ licenseType, className = '' }: LicenseBad
       {/* 下载授权文件按钮 */}
       <div className="mt-4 pt-3 border-t border-current border-opacity-20">
         <button className="w-full py-2 px-4 bg-white bg-opacity-20 rounded-md hover:bg-opacity-30 transition-colors text-sm font-medium">
-          下载授权文件 (PDF)
+          {t('license.downloadPdf')}
         </button>
       </div>
     </div>

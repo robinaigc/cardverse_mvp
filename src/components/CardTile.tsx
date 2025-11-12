@@ -1,14 +1,20 @@
 'use client';
 
+import { useLanguage } from '@/contexts/LanguageContext';
+
 interface CardTileProps {
   id: string;
   title: string;
+  titleEn?: string;
   caption: string;
+  captionEn?: string;
   previewUrl: string;
   thumbUrl: string;
   series: string;
+  seriesEn?: string;
   style: string;
   tags: string[];
+  tagsEn?: string[];
   downloads: number;
   onClick?: (id: string) => void;
 }
@@ -16,15 +22,26 @@ interface CardTileProps {
 export default function CardTile({
   id,
   title,
+  titleEn,
   caption,
+  captionEn,
   previewUrl,
   thumbUrl,
   series,
+  seriesEn,
   style,
   tags,
+  tagsEn,
   downloads,
   onClick
 }: CardTileProps) {
+  const { t, language } = useLanguage();
+  
+  // 根据语言选择显示的文本
+  const displayTitle = language === 'en' && titleEn ? titleEn : title;
+  const displayCaption = language === 'en' && captionEn ? captionEn : caption;
+  const displaySeries = language === 'en' && seriesEn ? seriesEn : series;
+  const displayTags = language === 'en' && tagsEn ? tagsEn : tags;
   return (
     <div 
       className="group cursor-pointer bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
@@ -61,33 +78,33 @@ export default function CardTile({
           <div className="w-full p-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
             <div className="flex items-center justify-between mb-1">
               <span className="text-xs font-medium text-white bg-white bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
-                {series}
+                {displaySeries}
               </span>
               <span className="text-xs text-white bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
-                {downloads} 下载
+                {downloads} {t('card.downloads')}
               </span>
             </div>
             
             <h3 className="font-semibold text-white mb-1 line-clamp-1 bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
-              {title}
+              {displayTitle}
             </h3>
             
             <p className="text-sm text-white mb-2 line-clamp-2 bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
-              {caption}
+              {displayCaption}
             </p>
             
             <div className="flex flex-wrap gap-0.5">
-              {tags.slice(0, 3).map((tag) => (
+              {displayTags.slice(0, 3).map((tag, index) => (
                 <span 
-                  key={tag}
+                  key={index}
                   className="text-xs text-white bg-white bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm"
                 >
                   {tag}
                 </span>
               ))}
-              {tags.length > 3 && (
+              {displayTags.length > 3 && (
                 <span className="text-xs text-white bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
-                  +{tags.length - 3}
+                  +{displayTags.length - 3}
                 </span>
               )}
             </div>

@@ -5,9 +5,13 @@ export interface CardImage {
   folder: string;
   filename: string;
   series: string;
+  seriesEn: string;
   title: string;
+  titleEn: string;
   caption: string;
+  captionEn: string;
   tags: string[];
+  tagsEn: string[];
 }
 
 // 每组的第一张图片配置
@@ -17,81 +21,117 @@ export const firstImages: CardImage[] = [
     folder: '0001_OrphismCity',
     filename: 'CV_000001_OrphismCity_Paris_EiffelTower_3-4.png',
     series: '城市系列',
+    seriesEn: 'City Series',
     title: '巴黎 - 埃菲尔铁塔',
+    titleEn: 'Paris - Eiffel Tower',
     caption: '精美的城市系列卡片，展现巴黎埃菲尔铁塔的独特魅力。',
-    tags: ['城市', '建筑', '巴黎', '埃菲尔铁塔', '现代艺术']
+    captionEn: 'Exquisite city series card showcasing the unique charm of the Eiffel Tower in Paris.',
+    tags: ['城市', '建筑', '巴黎', '埃菲尔铁塔', '现代艺术'],
+    tagsEn: ['City', 'Architecture', 'Paris', 'Eiffel Tower', 'Modern Art']
   },
   {
     id: 'card-011',
     folder: '0002_InkPaper',
     filename: 'CV_000011_InkPaper_Flower_3-4.png',
     series: '国风系列',
+    seriesEn: 'Chinese Style',
     title: '水墨花卉',
+    titleEn: 'Ink Flower',
     caption: '传统水墨风格的花卉卡片，展现东方美学的韵味。',
-    tags: ['国风', '水墨', '花卉', '传统', '东方美学']
+    captionEn: 'Traditional ink painting style flower card showcasing the charm of Eastern aesthetics.',
+    tags: ['国风', '水墨', '花卉', '传统', '东方美学'],
+    tagsEn: ['Chinese Style', 'Ink', 'Flower', 'Traditional', 'Eastern Aesthetics']
   },
   {
     id: 'card-021',
     folder: '0003_HighCloud',
     filename: 'CV_000021_HighCloud_GoldenBlue_3-4.png',
     series: '云彩系列',
+    seriesEn: 'Cloud Series',
     title: '金色云彩',
+    titleEn: 'Golden Cloud',
     caption: '梦幻的云彩系列卡片，展现天空的壮美与诗意。',
-    tags: ['云彩', '天空', '自然', '风景', '梦幻']
+    captionEn: 'Dreamy cloud series card showcasing the magnificence and poetry of the sky.',
+    tags: ['云彩', '天空', '自然', '风景', '梦幻'],
+    tagsEn: ['Cloud', 'Sky', 'Nature', 'Landscape', 'Dreamy']
   },
   {
     id: 'card-031',
     folder: '0004_BaroqueFrame',
     filename: 'CV_000031_BaroqueFrame_White_3-4.png',
     series: '巴洛克系列',
+    seriesEn: 'Baroque Series',
     title: '白色巴洛克',
+    titleEn: 'White Baroque',
     caption: '华丽的巴洛克风格卡片，展现古典装饰艺术的精致。',
-    tags: ['巴洛克', '装饰', '古典', '华丽', '艺术']
+    captionEn: 'Magnificent Baroque style card showcasing the refinement of classical decorative art.',
+    tags: ['巴洛克', '装饰', '古典', '华丽', '艺术'],
+    tagsEn: ['Baroque', 'Decoration', 'Classical', 'Magnificent', 'Art']
   },
   {
     id: 'card-041',
     folder: '0005_RococoFrame',
     filename: 'CV_000041_RococoFrame_WhiteGold_2-3.png',
     series: '洛可可系列',
+    seriesEn: 'Rococo Series',
     title: '白金洛可可',
+    titleEn: 'White Gold Rococo',
     caption: '精致的洛可可风格卡片，展现优雅的装饰美学。',
-    tags: ['洛可可', '精致', '优雅', '装饰', '艺术']
+    captionEn: 'Exquisite Rococo style card showcasing elegant decorative aesthetics.',
+    tags: ['洛可可', '精致', '优雅', '装饰', '艺术'],
+    tagsEn: ['Rococo', 'Exquisite', 'Elegant', 'Decoration', 'Art']
   },
   {
     id: 'card-051',
     folder: '0006_WatercolorFlower',
     filename: 'CV_000051_WatercolorFlower_Alstroemeria_2-3.png',
     series: '水彩花卉',
+    seriesEn: 'Watercolor Flower',
     title: '水彩花卉',
+    titleEn: 'Watercolor Flower',
     caption: '清新的水彩花卉卡片，展现自然之美与艺术创作。',
-    tags: ['水彩', '花卉', '自然', '清新', '艺术']
+    captionEn: 'Fresh watercolor flower card showcasing the beauty of nature and artistic creation.',
+    tags: ['水彩', '花卉', '自然', '清新', '艺术'],
+    tagsEn: ['Watercolor', 'Flower', 'Nature', 'Fresh', 'Art']
   },
   {
     id: 'card-061',
     folder: '0007_DreamyForest',
     filename: 'CV_000061_DreamyForest_FireflyGlow_2-3.png',
     series: '梦幻森林',
+    seriesEn: 'Dreamy Forest',
     title: '萤火之光',
+    titleEn: 'Firefly Glow',
     caption: '神秘的梦幻森林系列卡片，展现自然的神秘与美丽。',
-    tags: ['森林', '梦幻', '自然', '神秘', '美丽']
+    captionEn: 'Mysterious dreamy forest series card showcasing the mystery and beauty of nature.',
+    tags: ['森林', '梦幻', '自然', '神秘', '美丽'],
+    tagsEn: ['Forest', 'Dreamy', 'Nature', 'Mysterious', 'Beautiful']
   },
   {
     id: 'card-071',
     folder: '0008_FlowerGarden',
     filename: 'CV_000071_FlowerGarden_SpringWhisper_2-3.png',
     series: '花园系列',
+    seriesEn: 'Flower Garden',
     title: '春日低语',
+    titleEn: 'Spring Whisper',
     caption: '美丽的花园系列卡片，展现花卉的绚烂与生机。',
-    tags: ['花园', '花卉', '自然', '美丽', '生机']
+    captionEn: 'Beautiful flower garden series card showcasing the brilliance and vitality of flowers.',
+    tags: ['花园', '花卉', '自然', '美丽', '生机'],
+    tagsEn: ['Garden', 'Flower', 'Nature', 'Beautiful', 'Vitality']
   },
   {
     id: 'card-081',
     folder: '0009_AntsRoad',
     filename: 'CV_000081_AntsRoad_MorningTrail_2-3.png',
     series: '蚂蚁之路',
+    seriesEn: 'Ants Road',
     title: '晨间小径',
+    titleEn: 'Morning Trail',
     caption: '独特的微观世界卡片，展现自然细节的奇妙。',
-    tags: ['微观', '自然', '创意', '独特', '细节']
+    captionEn: 'Unique microcosm card showcasing the wonder of natural details.',
+    tags: ['微观', '自然', '创意', '独特', '细节'],
+    tagsEn: ['Micro', 'Nature', 'Creative', 'Unique', 'Detail']
   }
 ];
 

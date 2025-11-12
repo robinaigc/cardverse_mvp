@@ -4,29 +4,38 @@ import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import CardTile from './CardTile';
 import { firstImages } from '@/lib/cards';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Card {
   id: string;
   title: string;
+  titleEn?: string;
   caption: string;
+  captionEn?: string;
   previewUrl: string;
   thumbUrl: string;
   series: string;
+  seriesEn?: string;
   style: string;
   tags: string[];
+  tagsEn?: string[];
   downloads: number;
 }
 
-function generateCards(): Card[] {
+function generateCards(language: 'zh' | 'en' = 'zh'): Card[] {
   const cards = firstImages.map((img) => ({
     id: img.id,
-    title: img.title,
-    caption: img.caption,
+    title: language === 'en' && img.titleEn ? img.titleEn : img.title,
+    titleEn: img.titleEn,
+    caption: language === 'en' && img.captionEn ? img.captionEn : img.caption,
+    captionEn: img.captionEn,
     previewUrl: `/images/groups/${img.folder}/${img.filename}`,
     thumbUrl: `/images/groups/${img.folder}/${img.filename}`,
-    series: img.series,
+    series: language === 'en' && img.seriesEn ? img.seriesEn : img.series,
+    seriesEn: img.seriesEn,
     style: 'illustration',
-    tags: img.tags,
+    tags: language === 'en' && img.tagsEn ? img.tagsEn : img.tags,
+    tagsEn: img.tagsEn,
     downloads: Math.floor(Math.random() * 1000)
   }));
   
@@ -41,6 +50,7 @@ function generateCards(): Card[] {
 
 export default function MasonryGrid() {
   const router = useRouter();
+  const { t, language } = useLanguage();
   const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -48,14 +58,14 @@ export default function MasonryGrid() {
 
   useEffect(() => {
     loadCards();
-  }, [page]);
+  }, [page, language]);
 
   const loadCards = async () => {
     try {
       setLoading(true);
       
       // 生成所有卡片数据（每组只显示第一张）
-      const allCards = generateCards();
+      const allCards = generateCards(language);
       
       // 分页处理
       const pageSize = 20;
@@ -130,7 +140,7 @@ export default function MasonryGrid() {
         <div className="text-center py-8">
           <div className="inline-flex items-center space-x-2 text-gray-600">
             <div className="animate-spin rounded-full h-6 w-6 border-b-2 border-gray-600"></div>
-            <span>加载中...</span>
+            <span>{t('home.loading')}</span>
           </div>
         </div>
       )}
@@ -138,7 +148,7 @@ export default function MasonryGrid() {
       {/* 加载完成提示 */}
       {!hasMore && cards.length > 0 && (
         <div className="text-center text-gray-500 py-8">
-          已加载全部内容
+          {t('home.loadedAll')}
         </div>
       )}
     </div>

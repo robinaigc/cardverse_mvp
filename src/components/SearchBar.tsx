@@ -2,11 +2,13 @@
 
 import { useState } from 'react';
 import { useRouter } from 'next/navigation';
+import { useLanguage } from '@/contexts/LanguageContext';
 
 export default function SearchBar() {
   const [query, setQuery] = useState('');
   const [showAdvanced, setShowAdvanced] = useState(false);
   const router = useRouter();
+  const { t } = useLanguage();
 
   const handleSearch = (e: React.FormEvent) => {
     e.preventDefault();
@@ -28,14 +30,14 @@ export default function SearchBar() {
             type="text"
             value={query}
             onChange={(e) => setQuery(e.target.value)}
-            placeholder="搜索卡片、标签、作者..."
+            placeholder={t('search.placeholder')}
             className="flex-1 px-4 py-3 border border-gray-300 rounded-l-lg focus:outline-none focus:ring-2 focus:ring-gray-500 focus:border-transparent"
           />
           <button
             type="submit"
             className="px-6 py-3 bg-gray-300 text-gray-800 rounded-r-lg hover:bg-gray-400 focus:outline-none focus:ring-2 focus:ring-gray-500"
           >
-            搜索
+            {t('search.button')}
           </button>
         </div>
       </form>
@@ -46,7 +48,7 @@ export default function SearchBar() {
           onClick={handleAdvancedSearch}
           className="text-sm text-gray-600 hover:text-gray-700"
         >
-          {showAdvanced ? '收起' : '高级搜索'}
+          {showAdvanced ? t('search.collapse') : t('search.advanced')}
         </button>
       </div>
       
@@ -56,44 +58,44 @@ export default function SearchBar() {
           <div className="grid grid-cols-1 md:grid-cols-3 gap-4">
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                系列
+                {t('search.series')}
               </label>
               <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500">
-                <option value="">全部系列</option>
-                <option value="free">免费系列</option>
-                <option value="architecture">建筑系列</option>
-                <option value="city">城市系列</option>
-                <option value="gods">诸神系列</option>
-                <option value="chinese">国风系列</option>
-                <option value="ai-lab">AI实验室</option>
+                <option value="">{t('search.allSeries')}</option>
+                <option value="free">{t('sidebar.category.free')}</option>
+                <option value="architecture">{t('sidebar.category.architecture')}</option>
+                <option value="city">{t('sidebar.category.city')}</option>
+                <option value="gods">{t('sidebar.category.gods')}</option>
+                <option value="chinese">{t('sidebar.category.chinese')}</option>
+                <option value="ai-lab">{t('sidebar.category.aiLab')}</option>
               </select>
             </div>
             
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                风格
+                {t('search.style')}
               </label>
               <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500">
-                <option value="">全部风格</option>
-                <option value="minimal">极简</option>
-                <option value="illustration">插画</option>
-                <option value="photo">摄影</option>
-                <option value="abstract">抽象</option>
+                <option value="">{t('search.allStyles')}</option>
+                <option value="minimal">Minimal</option>
+                <option value="illustration">Illustration</option>
+                <option value="photo">Photo</option>
+                <option value="abstract">Abstract</option>
               </select>
             </div>
             
             <div>
               <label className="block text-sm font-medium text-gray-700 mb-1">
-                色系
+                {t('search.color')}
               </label>
               <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500">
-                <option value="">全部色系</option>
-                <option value="black">黑色</option>
-                <option value="white">白色</option>
-                <option value="blue">蓝色</option>
-                <option value="red">红色</option>
-                <option value="green">绿色</option>
-                <option value="yellow">黄色</option>
+                <option value="">{t('search.allColors')}</option>
+                <option value="black">Black</option>
+                <option value="white">White</option>
+                <option value="blue">Blue</option>
+                <option value="red">Red</option>
+                <option value="green">Green</option>
+                <option value="yellow">Yellow</option>
               </select>
             </div>
           </div>
@@ -103,7 +105,7 @@ export default function SearchBar() {
               onClick={() => setShowAdvanced(false)}
               className="px-4 py-2 border border-gray-300 rounded-md hover:bg-gray-50"
             >
-              取消
+              {t('search.cancel')}
             </button>
             <button
               onClick={() => {
@@ -112,7 +114,7 @@ export default function SearchBar() {
               }}
               className="px-4 py-2 bg-gray-300 text-gray-800 rounded-md hover:bg-gray-400"
             >
-              搜索
+              {t('search.button')}
             </button>
           </div>
         </div>
