@@ -1,6 +1,7 @@
 'use client';
 
 import { useState, useEffect, useCallback } from 'react';
+import { useRouter } from 'next/navigation';
 import CardTile from './CardTile';
 import { firstImages } from '@/lib/cards';
 
@@ -39,6 +40,7 @@ function generateCards(): Card[] {
 }
 
 export default function MasonryGrid() {
+  const router = useRouter();
   const [cards, setCards] = useState<Card[]>([]);
   const [loading, setLoading] = useState(true);
   const [page, setPage] = useState(1);
@@ -105,7 +107,7 @@ export default function MasonryGrid() {
     // 从 firstImages 中找到对应的卡片
     const card = firstImages.find(img => img.id === id);
     if (card) {
-      window.location.href = `/card/${encodeURIComponent(card.folder)}/${encodeURIComponent(card.filename)}`;
+      router.push(`/card/${encodeURIComponent(card.folder)}/${encodeURIComponent(card.filename)}`);
     }
   };
 

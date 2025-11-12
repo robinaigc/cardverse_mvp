@@ -28,10 +28,21 @@ export default function Sidebar() {
         {/* Logo 区域 */}
         <div className="mb-8">
           <div className="text-center">
-            <div className="w-12 h-12 bg-gray-700 rounded-lg mx-auto mb-2 flex items-center justify-center">
-              <span className="text-white font-bold text-xl">C</span>
+            <div className="w-16 h-16 mx-auto mb-3 flex items-center justify-center">
+              <img 
+                src="/logo.png" 
+                alt="Cardverse Logo" 
+                className="w-full h-full object-contain"
+                onError={(e) => {
+                  // 如果PNG不存在，尝试SVG
+                  const target = e.target as HTMLImageElement;
+                  if (target.src.includes('.png')) {
+                    target.src = '/logo.svg';
+                  }
+                }}
+              />
             </div>
-            <h1 className="text-lg font-bold text-gray-900">卡片宇宙</h1>
+            <h1 className="text-lg font-bold text-gray-900 mb-1">卡片宇宙</h1>
             <p className="text-sm text-gray-600">Cardverse</p>
           </div>
         </div>

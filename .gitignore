@@ -39,3 +39,6 @@ yarn-error.log*
 # typescript
 *.tsbuildinfo
 next-env.d.ts
+# 永远不要上传 images 文件夹
+images/
+public/images/
