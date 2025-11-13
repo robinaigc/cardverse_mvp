@@ -1,2 +1,0 @@
-chore: 从git中移除images文件夹，更新.gitignore
-
