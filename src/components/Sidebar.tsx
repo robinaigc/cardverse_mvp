@@ -59,7 +59,7 @@ export default function Sidebar() {
 
   const bottomButtons = [
     { id: 'pricing', name: t('sidebar.button.pricing'), href: '/pricing' },
-    { id: 'help', name: t('sidebar.button.help'), href: '#' }
+    { id: 'help', name: t('sidebar.button.help'), href: '/help' }
   ];
 
   return (
@@ -82,8 +82,9 @@ export default function Sidebar() {
                 }}
               />
             </div>
-            <h1 className="text-lg font-bold text-gray-900 mb-1">{t('sidebar.logo.title')}</h1>
-            <p className="text-sm text-gray-600">Cardverse</p>
+            <h1 className="text-lg font-bold text-gray-900 mb-0.5">{t('sidebar.logo.title')}</h1>
+            <p className="text-sm text-gray-600 mb-2">{t('sidebar.logo.subtitle')}</p>
+            <p className="text-xs text-gray-500 italic">{t('sidebar.logo.tagline')}</p>
           </div>
         </div>
         

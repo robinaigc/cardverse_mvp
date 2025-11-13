@@ -522,7 +522,7 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
       {/* Canvas 容器 */}
       <div 
         ref={containerRef}
-        className="relative bg-gray-100 rounded-lg overflow-visible flex-1"
+        className="relative bg-gray-100 rounded-lg overflow-visible flex-1 watermark-container"
         style={{ 
           position: 'relative', 
           minHeight: '0',
@@ -530,6 +530,9 @@ export default function TextEditor({ imageUrl, onDownload }: TextEditorProps) {
           width: '100%',
         }}
       >
+        {/* 第三行水印 - 右下角 */}
+        <div className="watermark-line watermark-bottom-right">cardverse cardverse cardverse</div>
+        
         <canvas
           ref={canvasRef}
           className="w-full h-auto"

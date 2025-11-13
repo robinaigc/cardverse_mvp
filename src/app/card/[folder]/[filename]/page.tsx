@@ -19,7 +19,7 @@ export default function CardPage() {
   const [groupImages, setGroupImages] = useState<string[]>([]);
   const [cardInfo, setCardInfo] = useState<any>(null);
 
-  // 只在 folder 或 language 变化时获取 group 信息和图片列表
+  // 只在 folder 变化时获取 group 信息和图片列表，不依赖 language
   useEffect(() => {
     // 获取该组所有图片
     const images = getGroupImages(folder);
@@ -33,7 +33,7 @@ export default function CardPage() {
         filename: firstCard.filename // 使用第一张图片的 filename，保持稳定
       });
     }
-  }, [folder, language]); // 依赖 folder 和 language，当语言切换时重新加载
+  }, [folder]); // 只依赖 folder，不依赖 language
 
   // 当 URL 中的 filename 变化时（比如直接访问新 URL），更新 currentImage
   useEffect(() => {

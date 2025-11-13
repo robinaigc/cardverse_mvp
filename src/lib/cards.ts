@@ -32,15 +32,15 @@ export const firstImages: CardImage[] = [
   {
     id: 'card-011',
     folder: '0002_InkPaper',
-    filename: 'CV_000011_InkPaper_Flower_3-4.png',
+    filename: 'CV_000011_InkPaper_Landscape_3-4.png',
     series: '国风系列',
     seriesEn: 'Chinese Style',
-    title: '水墨花卉',
-    titleEn: 'Ink Flower',
-    caption: '传统水墨风格的花卉卡片，展现东方美学的韵味。',
-    captionEn: 'Traditional ink painting style flower card showcasing the charm of Eastern aesthetics.',
-    tags: ['国风', '水墨', '花卉', '传统', '东方美学'],
-    tagsEn: ['Chinese Style', 'Ink', 'Flower', 'Traditional', 'Eastern Aesthetics']
+    title: '水墨山水',
+    titleEn: 'Ink Landscape',
+    caption: '传统水墨风格的山水卡片，展现东方美学的韵味。',
+    captionEn: 'Traditional ink painting style landscape card showcasing the charm of Eastern aesthetics.',
+    tags: ['国风', '水墨', '山水', '传统', '东方美学'],
+    tagsEn: ['Chinese Style', 'Ink', 'Landscape', 'Traditional', 'Eastern Aesthetics']
   },
   {
     id: 'card-021',
@@ -132,6 +132,32 @@ export const firstImages: CardImage[] = [
     captionEn: 'Unique microcosm card showcasing the wonder of natural details.',
     tags: ['微观', '自然', '创意', '独特', '细节'],
     tagsEn: ['Micro', 'Nature', 'Creative', 'Unique', 'Detail']
+  },
+  {
+    id: 'card-091',
+    folder: '0010_RiverForest',
+    filename: 'CV_000091_RiverForest_RiverPath_9-16.png',
+    series: '河流森林',
+    seriesEn: 'River Forest',
+    title: '河流小径',
+    titleEn: 'River Path',
+    caption: '优美的河流森林系列卡片，展现自然河流与森林的和谐之美。',
+    captionEn: 'Beautiful river forest series card showcasing the harmonious beauty of natural rivers and forests.',
+    tags: ['河流', '森林', '自然', '风景', '宁静'],
+    tagsEn: ['River', 'Forest', 'Nature', 'Landscape', 'Serene']
+  },
+  {
+    id: 'card-101',
+    folder: '0011_PirateShip',
+    filename: 'CV_000101_PirateShip_StormWake_9-16.png',
+    series: '海盗船系列',
+    seriesEn: 'Pirate Ship',
+    title: '日暮海盗船',
+    titleEn: 'Dusk Pirate Ship',
+    caption: '壮观的海盗船系列卡片，展现海洋冒险与勇气的魅力。',
+    captionEn: 'Spectacular pirate ship series card showcasing the charm of maritime adventure and courage.',
+    tags: ['海盗船', '海洋', '冒险', '勇气', '壮观'],
+    tagsEn: ['Pirate Ship', 'Ocean', 'Adventure', 'Courage', 'Spectacular']
   }
 ];
 
@@ -151,7 +177,7 @@ export function getGroupImages(folder: string): string[] {
       'CV_000010_OrphismCity_Venice_Gondola_3-4.png'
     ],
     '0002_InkPaper': [
-      'CV_000011_InkPaper_Flower_3-4.png',
+      'CV_000011_InkPaper_Landscape_3-4.png',
       'CV_000012_InkPaper_Flower_3-4.png',
       'CV_000013_InkPaper_Flower_3-4.png',
       'CV_000014_InkPaper_Flower_3-4.png',
@@ -160,7 +186,7 @@ export function getGroupImages(folder: string): string[] {
       'CV_000017_InkPaper_Flower_3-4.png',
       'CV_000018_InkPaper_Flower_3-4.png',
       'CV_000019_InkPaper_Landscape_3-4.png',
-      'CV_000020_InkPaper_Landscape_3-4.png'
+      'CV_000020_InkPaper_Flower_3-4.png'
     ],
     '0003_HighCloud': [
       'CV_000021_HighCloud_GoldenBlue_3-4.png',
@@ -245,6 +271,30 @@ export function getGroupImages(folder: string): string[] {
       'CV_000088_AntsRoad_TinyWorld_2-3.png',
       'CV_000089_AntsRoad_SunField_2-3.png',
       'CV_000090_AntsRoad_AntsMarch_2-3.png'
+    ],
+    '0010_RiverForest': [
+      'CV_000091_RiverForest_RiverPath_9-16.png',
+      'CV_000092_RiverForest_GoldenHills_9-16.png',
+      'CV_000093_RiverForest_ForestBend_9-16.png',
+      'CV_000094_RiverForest_SunsetStream_9-16.png',
+      'CV_000095_RiverForest_AutumnCanyon_9-16.png',
+      'CV_000096_RiverForest_MistyValley_9-16.png',
+      'CV_000097_RiverForest_AmberWoods_9-16.png',
+      'CV_000098_RiverForest_MorningFlow_9-16.png',
+      'CV_000099_RiverForest_CrimsonRiver_9-16.png',
+      'CV_000100_RiverForest_SilentHorizon_9-16.png'
+    ],
+    '0011_PirateShip': [
+      'CV_000101_PirateShip_StormWake_9-16.png',
+      'CV_000102_PirateShip_WaveStrike_9-16.png',
+      'CV_000103_PirateShip_DuskChase_9-16.png',
+      'CV_000104_PirateShip_FireTrail_9-16.png',
+      'CV_000105_PirateShip_SunsetVoyage_9-16.png',
+      'CV_000106_PirateShip_GoldSail_9-16.png',
+      'CV_000107_PirateShip_CalmHarbor_9-16.png',
+      'CV_000108_PirateShip_BladeWave_9-16.png',
+      'CV_000109_PirateShip_SkyBreaker_9-16.png',
+      'CV_000110_PirateShip_MoonCurrent_9-16.png'
     ]
   };
   
@@ -305,6 +355,14 @@ const groupNames: Record<string, GroupName> = {
   '0009_AntsRoad': {
     chinese: '蚂蚁之路',
     english: 'Ants Road'
+  },
+  '0010_RiverForest': {
+    chinese: '河流森林',
+    english: 'River Forest'
+  },
+  '0011_PirateShip': {
+    chinese: '海盗船系列',
+    english: 'Pirate Ship'
   }
 };
 

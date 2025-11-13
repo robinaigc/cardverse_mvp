@@ -24,3 +24,61 @@ body {
   color: var(--foreground);
   font-family: Arial, Helvetica, sans-serif;
 }
+
+/* 水印样式 - 用于 TextEditor 组件 */
+/* 第一行水印 - 左上角 */
+.watermark-container::before {
+  content: 'cardverse cardverse cardverse';
+  position: absolute;
+  top: 31%;
+  left: 3%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.196;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 34px;
+  font-weight: 300;
+  letter-spacing: 18px;
+  white-space: nowrap;
+  transform: rotate(-60deg);
+  transform-origin: top left;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}
+
+/* 第二行水印 - 中间（左下角至右上角连线的中心） */
+.watermark-container::after {
+  content: 'cardverse cardverse cardverse';
+  position: absolute;
+  top: 50%;
+  left: 50%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.196;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 34px;
+  font-weight: 300;
+  letter-spacing: 18px;
+  white-space: nowrap;
+  transform: translate(-50%, -50%) rotate(-60deg);
+  transform-origin: center center;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+  margin-top: -18px;
+}
+
+/* 第三行水印 - 右下角 */
+.watermark-line.watermark-bottom-right {
+  position: absolute;
+  bottom: 31%;
+  right: 3%;
+  pointer-events: none;
+  z-index: 2;
+  opacity: 0.196;
+  color: rgba(255, 255, 255, 0.95);
+  font-size: 34px;
+  font-weight: 300;
+  letter-spacing: 18px;
+  white-space: nowrap;
+  transform: rotate(-60deg);
+  transform-origin: bottom right;
+  text-shadow: 0 0 25px rgba(255, 255, 255, 0.4);
+}

@@ -56,9 +56,31 @@ export default function MasonryGrid() {
   const [page, setPage] = useState(1);
   const [hasMore, setHasMore] = useState(true);
 
+  // 只在 page 变化时加载新卡片，不依赖 language
   useEffect(() => {
     loadCards();
-  }, [page, language]);
+  }, [page]);
+
+  // 当语言切换时，只更新现有卡片的文本内容，不重新加载图片
+  useEffect(() => {
+    if (cards.length > 0) {
+      setCards(prevCards => {
+        return prevCards.map(card => {
+          const originalCard = firstImages.find(img => img.id === card.id);
+          if (originalCard) {
+            return {
+              ...card,
+              title: language === 'en' && originalCard.titleEn ? originalCard.titleEn : originalCard.title,
+              caption: language === 'en' && originalCard.captionEn ? originalCard.captionEn : originalCard.caption,
+              series: language === 'en' && originalCard.seriesEn ? originalCard.seriesEn : originalCard.series,
+              tags: language === 'en' && originalCard.tagsEn ? originalCard.tagsEn : originalCard.tags,
+            };
+          }
+          return card;
+        });
+      });
+    }
+  }, [language]); // 只依赖 language，用于更新文本
 
   const loadCards = async () => {
     try {
