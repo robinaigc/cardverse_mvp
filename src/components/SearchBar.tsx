@@ -62,11 +62,11 @@ export default function SearchBar() {
               </label>
               <select className="w-full px-3 py-2 border border-gray-300 rounded-md focus:outline-none focus:ring-2 focus:ring-gray-500">
                 <option value="">{t('search.allSeries')}</option>
-                <option value="free">{t('sidebar.category.free')}</option>
-                <option value="architecture">{t('sidebar.category.architecture')}</option>
-                <option value="city">{t('sidebar.category.city')}</option>
-                <option value="gods">{t('sidebar.category.gods')}</option>
                 <option value="chinese">{t('sidebar.category.chinese')}</option>
+                <option value="architecture">{t('sidebar.category.architecture')}</option>
+                <option value="texture">{t('sidebar.category.texture')}</option>
+                <option value="city">{t('sidebar.category.city')}</option>
+                <option value="nature">{t('sidebar.category.nature')}</option>
                 <option value="ai-lab">{t('sidebar.category.aiLab')}</option>
               </select>
             </div>

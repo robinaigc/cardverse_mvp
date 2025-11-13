@@ -12,6 +12,8 @@ interface CardTileProps {
   thumbUrl: string;
   series: string;
   seriesEn?: string;
+  groupName: string;
+  groupNameEn?: string;
   style: string;
   tags: string[];
   tagsEn?: string[];
@@ -29,6 +31,8 @@ export default function CardTile({
   thumbUrl,
   series,
   seriesEn,
+  groupName,
+  groupNameEn,
   style,
   tags,
   tagsEn,
@@ -42,6 +46,7 @@ export default function CardTile({
   const displayCaption = language === 'en' && captionEn ? captionEn : caption;
   const displaySeries = language === 'en' && seriesEn ? seriesEn : series;
   const displayTags = language === 'en' && tagsEn ? tagsEn : tags;
+  const displayGroupName = language === 'en' && groupNameEn ? groupNameEn : groupName || displayTitle;
   return (
     <div 
       className="group cursor-pointer bg-white rounded-lg shadow-sm hover:shadow-md transition-all duration-300"
@@ -75,35 +80,33 @@ export default function CardTile({
             e.currentTarget.style.backgroundColor = 'rgba(0, 0, 0, 0)';
           }}
         >
-          <div className="w-full p-2 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
-            <div className="flex items-center justify-between mb-1">
-              <span className="text-xs font-medium text-white bg-white bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
+          <div className="w-full p-3 transform translate-y-full group-hover:translate-y-0 transition-transform duration-300">
+            <div className="flex items-center justify-between mb-2">
+              {/* 所属系列 */}
+              <span className="text-xs font-medium text-white opacity-80">
                 {displaySeries}
               </span>
-              <span className="text-xs text-white bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
+              <span className="text-xs text-white bg-black bg-opacity-50 px-2 py-0.5 rounded">
                 {downloads} {t('card.downloads')}
               </span>
             </div>
             
-            <h3 className="font-semibold text-white mb-1 line-clamp-1 bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
-              {displayTitle}
+            {/* Group ID 中的名字 */}
+            <h3 className="font-semibold text-white mb-1 line-clamp-1">
+              {displayGroupName}
             </h3>
             
-            <p className="text-sm text-white mb-2 line-clamp-2 bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
+            {/* 整组10张图片的概括简介 */}
+            <p className="text-sm text-white mb-3 line-clamp-2 opacity-90">
               {displayCaption}
             </p>
             
-            <div className="flex flex-wrap gap-0.5">
+            <div className="flex flex-wrap gap-2 text-xs text-white opacity-70">
               {displayTags.slice(0, 3).map((tag, index) => (
-                <span 
-                  key={index}
-                  className="text-xs text-white bg-white bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm"
-                >
-                  {tag}
-                </span>
+                <span key={index}>{tag}</span>
               ))}
               {displayTags.length > 3 && (
-                <span className="text-xs text-white bg-black bg-opacity-20 px-1.5 py-0.5 rounded backdrop-blur-sm">
+                <span>
                   +{displayTags.length - 3}
                 </span>
               )}

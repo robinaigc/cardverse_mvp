@@ -49,11 +49,11 @@ export default function Sidebar() {
   }, []);
 
   const categories = [
-    { id: 'free', name: t('sidebar.category.free'), href: '/?series=free' },
-    { id: 'architecture', name: t('sidebar.category.architecture'), href: '/?series=architecture' },
-    { id: 'city', name: t('sidebar.category.city'), href: '/?series=city' },
-    { id: 'gods', name: t('sidebar.category.gods'), href: '/?series=gods' },
     { id: 'chinese', name: t('sidebar.category.chinese'), href: '/?series=chinese' },
+    { id: 'architecture', name: t('sidebar.category.architecture'), href: '/?series=architecture' },
+    { id: 'texture', name: t('sidebar.category.texture'), href: '/?series=texture' },
+    { id: 'city', name: t('sidebar.category.city'), href: '/?series=city' },
+    { id: 'nature', name: t('sidebar.category.nature'), href: '/?series=nature' },
     { id: 'ai-lab', name: t('sidebar.category.aiLab'), href: '/?series=ai-lab' }
   ];
 

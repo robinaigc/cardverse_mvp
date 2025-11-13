@@ -46,8 +46,8 @@ export const firstImages: CardImage[] = [
     id: 'card-021',
     folder: '0003_HighCloud',
     filename: 'CV_000021_HighCloud_GoldenBlue_3-4.png',
-    series: '云彩系列',
-    seriesEn: 'Cloud Series',
+    series: '自然系列',
+    seriesEn: 'Nature Series',
     title: '金色云彩',
     titleEn: 'Golden Cloud',
     caption: '梦幻的云彩系列卡片，展现天空的壮美与诗意。',
@@ -59,8 +59,8 @@ export const firstImages: CardImage[] = [
     id: 'card-031',
     folder: '0004_BaroqueFrame',
     filename: 'CV_000031_BaroqueFrame_White_3-4.png',
-    series: '巴洛克系列',
-    seriesEn: 'Baroque Series',
+    series: '建筑系列',
+    seriesEn: 'Architecture Series',
     title: '白色巴洛克',
     titleEn: 'White Baroque',
     caption: '华丽的巴洛克风格卡片，展现古典装饰艺术的精致。',
@@ -72,8 +72,8 @@ export const firstImages: CardImage[] = [
     id: 'card-041',
     folder: '0005_RococoFrame',
     filename: 'CV_000041_RococoFrame_WhiteGold_2-3.png',
-    series: '洛可可系列',
-    seriesEn: 'Rococo Series',
+    series: '建筑系列',
+    seriesEn: 'Architecture Series',
     title: '白金洛可可',
     titleEn: 'White Gold Rococo',
     caption: '精致的洛可可风格卡片，展现优雅的装饰美学。',
@@ -85,8 +85,8 @@ export const firstImages: CardImage[] = [
     id: 'card-051',
     folder: '0006_WatercolorFlower',
     filename: 'CV_000051_WatercolorFlower_Alstroemeria_2-3.png',
-    series: '水彩花卉',
-    seriesEn: 'Watercolor Flower',
+    series: '国风系列',
+    seriesEn: 'Chinese Style',
     title: '水彩花卉',
     titleEn: 'Watercolor Flower',
     caption: '清新的水彩花卉卡片，展现自然之美与艺术创作。',
@@ -98,8 +98,8 @@ export const firstImages: CardImage[] = [
     id: 'card-061',
     folder: '0007_DreamyForest',
     filename: 'CV_000061_DreamyForest_FireflyGlow_2-3.png',
-    series: '梦幻森林',
-    seriesEn: 'Dreamy Forest',
+    series: '自然系列',
+    seriesEn: 'Nature Series',
     title: '萤火之光',
     titleEn: 'Firefly Glow',
     caption: '神秘的梦幻森林系列卡片，展现自然的神秘与美丽。',
@@ -111,8 +111,8 @@ export const firstImages: CardImage[] = [
     id: 'card-071',
     folder: '0008_FlowerGarden',
     filename: 'CV_000071_FlowerGarden_SpringWhisper_2-3.png',
-    series: '花园系列',
-    seriesEn: 'Flower Garden',
+    series: '自然系列',
+    seriesEn: 'Nature Series',
     title: '春日低语',
     titleEn: 'Spring Whisper',
     caption: '美丽的花园系列卡片，展现花卉的绚烂与生机。',
@@ -137,8 +137,8 @@ export const firstImages: CardImage[] = [
     id: 'card-091',
     folder: '0010_RiverForest',
     filename: 'CV_000091_RiverForest_RiverPath_9-16.png',
-    series: '河流森林',
-    seriesEn: 'River Forest',
+    series: '自然系列',
+    seriesEn: 'Nature Series',
     title: '河流小径',
     titleEn: 'River Path',
     caption: '优美的河流森林系列卡片，展现自然河流与森林的和谐之美。',
@@ -301,15 +301,49 @@ export function getGroupImages(folder: string): string[] {
   return groupMap[folder] || [];
 }
 
+// 从文件名中提取图片名称（英文）
+function extractImageNameFromFilename(filename: string): string {
+  // 格式: CV_000061_DreamyForest_FireflyGlow_2-3.png
+  // 或者: CV_000061_DreamyForest_Firefly_Glow_2-3.png
+  // 提取最后一个下划线和数字比例之间的部分
+  const match = filename.match(/CV_\d+_\w+_(.+?)_\d+-\d+\.png$/);
+  if (match && match[1]) {
+    // 将下划线或驼峰命名转换为可读格式
+    // FireflyGlow -> Firefly Glow
+    // Firefly_Glow -> Firefly Glow
+    return match[1]
+      .replace(/_/g, ' ') // 先替换下划线
+      .replace(/([A-Z])/g, ' $1') // 再处理驼峰
+      .replace(/\s+/g, ' ') // 合并多个空格
+      .trim();
+  }
+  return '';
+}
+
 // 根据文件夹和文件名获取卡片信息
 export function getCardByFilename(folder: string, filename: string): CardImage | null {
   const firstImage = firstImages.find(img => img.folder === folder);
   if (!firstImage) return null;
   
+  // 如果是第一张图片，直接返回
+  if (firstImage.filename === filename) {
+    return {
+      ...firstImage,
+      id: `card-${folder}-${filename}`,
+      filename: filename
+    };
+  }
+  
+  // 对于其他图片，从文件名中提取名称
+  const imageNameEn = extractImageNameFromFilename(filename);
+  
   return {
     ...firstImage,
     id: `card-${folder}-${filename}`,
-    filename: filename
+    filename: filename,
+    title: imageNameEn || firstImage.title, // 使用提取的名称或默认标题
+    titleEn: imageNameEn || firstImage.titleEn, // 使用提取的名称或默认英文标题
+    // caption 和 captionEn 保持第一张图片的描述（整组概括）
   };
 }
 
@@ -361,7 +395,7 @@ const groupNames: Record<string, GroupName> = {
     english: 'River Forest'
   },
   '0011_PirateShip': {
-    chinese: '海盗船系列',
+    chinese: '海盗船',
     english: 'Pirate Ship'
   }
 };

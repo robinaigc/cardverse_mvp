@@ -3,7 +3,7 @@
 import { useState, useEffect, useCallback } from 'react';
 import { useRouter } from 'next/navigation';
 import CardTile from './CardTile';
-import { firstImages } from '@/lib/cards';
+import { firstImages, getGroupName } from '@/lib/cards';
 import { useLanguage } from '@/contexts/LanguageContext';
 
 interface Card {
@@ -16,6 +16,8 @@ interface Card {
   thumbUrl: string;
   series: string;
   seriesEn?: string;
+  groupName: string;
+  groupNameEn?: string;
   style: string;
   tags: string[];
   tagsEn?: string[];
@@ -33,6 +35,15 @@ function generateCards(language: 'zh' | 'en' = 'zh'): Card[] {
     thumbUrl: `/images/groups/${img.folder}/${img.filename}`,
     series: language === 'en' && img.seriesEn ? img.seriesEn : img.series,
     seriesEn: img.seriesEn,
+    groupName: (() => {
+      const group = getGroupName(img.folder);
+      if (!group) return '';
+      return language === 'en' && group.english ? group.english : group.chinese;
+    })(),
+    groupNameEn: (() => {
+      const group = getGroupName(img.folder);
+      return group?.english;
+    })(),
     style: 'illustration',
     tags: language === 'en' && img.tagsEn ? img.tagsEn : img.tags,
     tagsEn: img.tagsEn,
@@ -73,6 +84,11 @@ export default function MasonryGrid() {
               title: language === 'en' && originalCard.titleEn ? originalCard.titleEn : originalCard.title,
               caption: language === 'en' && originalCard.captionEn ? originalCard.captionEn : originalCard.caption,
               series: language === 'en' && originalCard.seriesEn ? originalCard.seriesEn : originalCard.series,
+              groupName: (() => {
+                const group = getGroupName(originalCard.folder);
+                if (!group) return card.groupName;
+                return language === 'en' && group.english ? group.english : group.chinese;
+              })(),
               tags: language === 'en' && originalCard.tagsEn ? originalCard.tagsEn : originalCard.tags,
             };
           }

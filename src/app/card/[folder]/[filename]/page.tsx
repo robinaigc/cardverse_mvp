@@ -25,20 +25,20 @@ export default function CardPage() {
     const images = getGroupImages(folder);
     setGroupImages(images);
     
-    // 获取该组的第一张图片信息作为默认卡片信息（不依赖 filename，保持稳定）
-    const firstCard = firstImages.find(img => img.folder === folder);
-    if (firstCard) {
-      setCardInfo({
-        ...firstCard,
-        filename: firstCard.filename // 使用第一张图片的 filename，保持稳定
-      });
+    // 根据当前 filename 获取卡片信息
+    const card = getCardByFilename(folder, filename);
+    if (card) {
+      setCardInfo(card);
     }
-  }, [folder]); // 只依赖 folder，不依赖 language
+  }, [folder, filename]); // 依赖 folder 和 filename
 
-  // 当 URL 中的 filename 变化时（比如直接访问新 URL），更新 currentImage
+  // 当 currentImage 变化时，更新 cardInfo
   useEffect(() => {
-    setCurrentImage(filename);
-  }, [filename]);
+    const card = getCardByFilename(folder, currentImage);
+    if (card) {
+      setCardInfo(card);
+    }
+  }, [currentImage, folder]);
 
   // 使用 useMemo 缓存 group 名称，避免每次渲染都重新计算
   const groupName = useMemo(() => getGroupName(folder), [folder]);
@@ -152,14 +152,15 @@ export default function CardPage() {
             {/* 右侧：卡片信息区域 */}
             <div className="space-y-6">
               <div>
-                {/* 标题 */}
+                {/* 标题 - 当前图片的名称 */}
                 <h1 className="text-2xl font-bold mb-1">
                   {language === 'en' && cardInfo.titleEn ? cardInfo.titleEn : cardInfo.title}
                 </h1>
-                {/* 副标题 - 从文件名提取或使用英文标题 */}
+                {/* 副标题 - 当前图片的英文名称（始终显示英文） */}
                 <p className="text-lg text-gray-500 mb-3 font-normal">
-                  {language === 'en' ? englishName : (cardInfo.titleEn || englishName)}
+                  {cardInfo.titleEn || cardInfo.title}
                 </p>
+                {/* 描述 - 整组10张图片的概括简介（使用第一张图片的描述） */}
                 <p className="text-gray-600 mb-4">
                   {language === 'en' && cardInfo.captionEn ? cardInfo.captionEn : cardInfo.caption}
                 </p>
