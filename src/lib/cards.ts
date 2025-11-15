@@ -158,6 +158,19 @@ export const firstImages: CardImage[] = [
     captionEn: 'Spectacular pirate ship series card showcasing the charm of maritime adventure and courage.',
     tags: ['海盗船', '海洋', '冒险', '勇气', '壮观'],
     tagsEn: ['Pirate Ship', 'Ocean', 'Adventure', 'Courage', 'Spectacular']
+  },
+  {
+    id: 'card-111',
+    folder: '0012_LonelyMilkyWay',
+    filename: 'CV_000111_LonelyMilkyWay_LonelyStarlight_9-16.png',
+    series: '自然系列',
+    seriesEn: 'Nature Series',
+    title: '孤独星光',
+    titleEn: 'Lonely Starlight',
+    caption: '神秘的孤独银河系列卡片，展现宇宙的浩瀚与孤独之美。',
+    captionEn: 'Mysterious lonely Milky Way series card showcasing the vastness and beauty of cosmic solitude.',
+    tags: ['银河', '星空', '自然', '宇宙', '神秘'],
+    tagsEn: ['Milky Way', 'Starry Sky', 'Nature', 'Universe', 'Mysterious']
   }
 ];
 
@@ -295,6 +308,18 @@ export function getGroupImages(folder: string): string[] {
       'CV_000108_PirateShip_BladeWave_9-16.png',
       'CV_000109_PirateShip_SkyBreaker_9-16.png',
       'CV_000110_PirateShip_MoonCurrent_9-16.png'
+    ],
+    '0012_LonelyMilkyWay': [
+      'CV_000111_LonelyMilkyWay_LonelyStarlight_9-16.png',
+      'CV_000112_LonelyMilkyWay_SilentGalaxy_9-16.png',
+      'CV_000113_LonelyMilkyWay_SolitaryBeam_9-16.png',
+      'CV_000114_LonelyMilkyWay_CrimsonMilky_9-16.png',
+      'CV_000115_LonelyMilkyWay_ForestHalo_9-16.png',
+      'CV_000116_LonelyMilkyWay_HorizonGlow_9-16.png',
+      'CV_000117_LonelyMilkyWay_AzureSpiral_9-16.png',
+      'CV_000118_LonelyMilkyWay_MidnightRise_9-16.png',
+      'CV_000119_LonelyMilkyWay_CelestialPath_9-16.png',
+      'CV_000120_LonelyMilkyWay_EternalNight_9-16.png'
     ]
   };
   
@@ -320,6 +345,142 @@ function extractImageNameFromFilename(filename: string): string {
   return '';
 }
 
+// 图片中英文名称映射表（按文件夹组织）
+const imageTitleMap: Record<string, Record<string, { chinese: string; english: string }>> = {
+  '0001_OrphismCity': {
+    'Paris Eiffel Tower': { chinese: '巴黎 - 埃菲尔铁塔', english: 'Paris - Eiffel Tower' },
+    'London Big Ben': { chinese: '伦敦 - 大本钟', english: 'London - Big Ben' },
+    'Dubai Khalifa': { chinese: '迪拜 - 哈利法塔', english: 'Dubai - Khalifa' },
+    'Kyoto Golden Pavilion': { chinese: '京都 - 金阁寺', english: 'Kyoto - Golden Pavilion' },
+    'Rio De Janeiro Street View': { chinese: '里约热内卢 - 街景', english: 'Rio De Janeiro - Street View' },
+    'Edinburgh Castle And City': { chinese: '爱丁堡 - 城堡与城市', english: 'Edinburgh - Castle And City' },
+    'Istanbul Bosphorus Bridge': { chinese: '伊斯坦布尔 - 博斯普鲁斯大桥', english: 'Istanbul - Bosphorus Bridge' },
+    'Istanbul Byzantine Cathedral': { chinese: '伊斯坦布尔 - 拜占庭大教堂', english: 'Istanbul - Byzantine Cathedral' },
+    'Hong Kong Street Neon': { chinese: '香港 - 霓虹街景', english: 'Hong Kong - Street Neon' },
+    'Venice Gondola': { chinese: '威尼斯 - 贡多拉', english: 'Venice - Gondola' }
+  },
+  '0002_InkPaper': {
+    'Landscape': { chinese: '水墨山水', english: 'Ink Landscape' },
+    'Flower': { chinese: '水墨花卉', english: 'Ink Flower' }
+  },
+  '0003_HighCloud': {
+    'Golden Blue': { chinese: '金色云彩', english: 'Golden Cloud' },
+    'Warm Gray': { chinese: '暖灰云彩', english: 'Warm Gray Cloud' },
+    'Golden': { chinese: '金色云朵', english: 'Golden Cloud' },
+    'Blue': { chinese: '蓝色云彩', english: 'Blue Cloud' },
+    'Dark Blue': { chinese: '深蓝云彩', english: 'Dark Blue Cloud' }
+  },
+  '0004_BaroqueFrame': {
+    'White': { chinese: '白色巴洛克', english: 'White Baroque' },
+    'Softred': { chinese: '柔红巴洛克', english: 'Soft Red Baroque' },
+    'Whitegold': { chinese: '白金巴洛克', english: 'White Gold Baroque' }
+  },
+  '0005_RococoFrame': {
+    'White Gold': { chinese: '白金洛可可', english: 'White Gold Rococo' },
+    'Flower': { chinese: '花卉洛可可', english: 'Flower Rococo' },
+    'White': { chinese: '白色洛可可', english: 'White Rococo' },
+    'Warm Gray': { chinese: '暖灰洛可可', english: 'Warm Gray Rococo' }
+  },
+  '0006_WatercolorFlower': {
+    'Alstroemeria': { chinese: '水彩花卉', english: 'Watercolor Flower' },
+    'Plum Bossom': { chinese: '梅花', english: 'Plum Blossom' },
+    'Wisteria': { chinese: '紫藤', english: 'Wisteria' },
+    'Flower': { chinese: '水彩花卉', english: 'Watercolor Flower' }
+  },
+  '0007_DreamyForest': {
+    'Firefly Glow': { chinese: '萤火之光', english: 'Firefly Glow' },
+    'Starry Mist': { chinese: '星雾', english: 'Starry Mist' },
+    'Golden Weeds': { chinese: '金色草丛', english: 'Golden Weeds' },
+    'Misty Path': { chinese: '迷雾小径', english: 'Misty Path' },
+    'Magic Pond': { chinese: '魔法池塘', english: 'Magic Pond' },
+    'Amber Light': { chinese: '琥珀之光', english: 'Amber Light' },
+    'Blue Veil': { chinese: '蓝色面纱', english: 'Blue Veil' },
+    'Luminescent Trees': { chinese: '发光树', english: 'Luminescent Trees' },
+    'Spark Rain': { chinese: '火花雨', english: 'Spark Rain' }
+  },
+  '0008_FlowerGarden': {
+    'Spring Whisper': { chinese: '春日低语', english: 'Spring Whisper' },
+    'Sun Petals': { chinese: '阳光花瓣', english: 'Sun Petals' },
+    'Golden Bloom': { chinese: '金色绽放', english: 'Golden Bloom' },
+    'Cloud Field': { chinese: '云朵田野', english: 'Cloud Field' },
+    'Pastel Dream': { chinese: '粉彩梦境', english: 'Pastel Dream' },
+    'Flower Horizon': { chinese: '花海地平线', english: 'Flower Horizon' },
+    'Crinum Lily': { chinese: '文殊兰', english: 'Crinum Lily' },
+    'Datura Stramonium': { chinese: '曼陀罗', english: 'Datura Stramonium' },
+    'Lupin flower': { chinese: '羽扇豆', english: 'Lupin Flower' },
+    'Torch Lily': { chinese: '火炬百合', english: 'Torch Lily' }
+  },
+  '0009_AntsRoad': {
+    'Morning Trail': { chinese: '晨间小径', english: 'Morning Trail' },
+    'Rain Path': { chinese: '雨中小径', english: 'Rain Path' },
+    'Dew Journey': { chinese: '露珠之旅', english: 'Dew Journey' },
+    'Green Tunnel': { chinese: '绿色隧道', english: 'Green Tunnel' },
+    'Leaf Way': { chinese: '叶片之路', english: 'Leaf Way' },
+    'Mist Road': { chinese: '迷雾之路', english: 'Mist Road' },
+    'Bloom Trail': { chinese: '花开小径', english: 'Bloom Trail' },
+    'Tiny World': { chinese: '微观世界', english: 'Tiny World' },
+    'Sun Field': { chinese: '阳光田野', english: 'Sun Field' },
+    'Ants March': { chinese: '蚂蚁行军', english: 'Ants March' }
+  },
+  '0010_RiverForest': {
+    'River Path': { chinese: '河流小径', english: 'River Path' },
+    'Golden Hills': { chinese: '金色山丘', english: 'Golden Hills' },
+    'Forest Bend': { chinese: '森林弯道', english: 'Forest Bend' },
+    'Sunset Stream': { chinese: '日落溪流', english: 'Sunset Stream' },
+    'Autumn Canyon': { chinese: '秋日峡谷', english: 'Autumn Canyon' },
+    'Misty Valley': { chinese: '迷雾山谷', english: 'Misty Valley' },
+    'Amber Woods': { chinese: '琥珀森林', english: 'Amber Woods' },
+    'Morning Flow': { chinese: '晨流', english: 'Morning Flow' },
+    'Crimson River': { chinese: '深红河流', english: 'Crimson River' },
+    'Silent Horizon': { chinese: '寂静地平线', english: 'Silent Horizon' }
+  },
+  '0011_PirateShip': {
+    'Storm Wake': { chinese: '日暮海盗船', english: 'Dusk Pirate Ship' },
+    'Wave Strike': { chinese: '波浪冲击', english: 'Wave Strike' },
+    'Dusk Chase': { chinese: '黄昏追逐', english: 'Dusk Chase' },
+    'Fire Trail': { chinese: '火焰轨迹', english: 'Fire Trail' },
+    'Sunset Voyage': { chinese: '日落航行', english: 'Sunset Voyage' },
+    'Gold Sail': { chinese: '金色帆', english: 'Gold Sail' },
+    'Calm Harbor': { chinese: '平静港湾', english: 'Calm Harbor' },
+    'Blade Wave': { chinese: '刀刃波浪', english: 'Blade Wave' },
+    'Sky Breaker': { chinese: '天空破晓', english: 'Sky Breaker' },
+    'Moon Current': { chinese: '月光流', english: 'Moon Current' }
+  },
+  '0012_LonelyMilkyWay': {
+    'Lonely Starlight': { chinese: '孤独星光', english: 'Lonely Starlight' },
+    'Silent Galaxy': { chinese: '寂静银河', english: 'Silent Galaxy' },
+    'Solitary Beam': { chinese: '孤独光束', english: 'Solitary Beam' },
+    'Crimson Milky': { chinese: '深红银河', english: 'Crimson Milky' },
+    'Forest Halo': { chinese: '森林光环', english: 'Forest Halo' },
+    'Horizon Glow': { chinese: '地平线光芒', english: 'Horizon Glow' },
+    'Azure Spiral': { chinese: '天蓝螺旋', english: 'Azure Spiral' },
+    'Midnight Rise': { chinese: '午夜升起', english: 'Midnight Rise' },
+    'Celestial Path': { chinese: '天路', english: 'Celestial Path' },
+    'Eternal Night': { chinese: '永恒之夜', english: 'Eternal Night' }
+  }
+};
+
+// 根据文件夹和英文名称获取中英文标题
+function getImageTitle(folder: string, englishName: string): { chinese: string; english: string } | null {
+  const folderMap = imageTitleMap[folder];
+  if (!folderMap) return null;
+  
+  // 尝试精确匹配
+  if (folderMap[englishName]) {
+    return folderMap[englishName];
+  }
+  
+  // 尝试不区分大小写匹配
+  const lowerEnglishName = englishName.toLowerCase();
+  for (const [key, value] of Object.entries(folderMap)) {
+    if (key.toLowerCase() === lowerEnglishName) {
+      return value;
+    }
+  }
+  
+  return null;
+}
+
 // 根据文件夹和文件名获取卡片信息
 export function getCardByFilename(folder: string, filename: string): CardImage | null {
   const firstImage = firstImages.find(img => img.folder === folder);
@@ -337,12 +498,15 @@ export function getCardByFilename(folder: string, filename: string): CardImage |
   // 对于其他图片，从文件名中提取名称
   const imageNameEn = extractImageNameFromFilename(filename);
   
+  // 尝试从映射表中获取中英文标题
+  const titleMapping = imageNameEn ? getImageTitle(folder, imageNameEn) : null;
+  
   return {
     ...firstImage,
     id: `card-${folder}-${filename}`,
     filename: filename,
-    title: imageNameEn || firstImage.title, // 使用提取的名称或默认标题
-    titleEn: imageNameEn || firstImage.titleEn, // 使用提取的名称或默认英文标题
+    title: titleMapping?.chinese || imageNameEn || firstImage.title, // 优先使用映射表中的中文名
+    titleEn: titleMapping?.english || imageNameEn || firstImage.titleEn, // 优先使用映射表中的英文名
     // caption 和 captionEn 保持第一张图片的描述（整组概括）
   };
 }
@@ -397,6 +561,10 @@ const groupNames: Record<string, GroupName> = {
   '0011_PirateShip': {
     chinese: '海盗船',
     english: 'Pirate Ship'
+  },
+  '0012_LonelyMilkyWay': {
+    chinese: '孤独银河',
+    english: 'Lonely Milky Way'
   }
 };
 
